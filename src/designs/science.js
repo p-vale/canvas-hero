@@ -2,33 +2,42 @@ const c_math = require('canvas-sketch-util/math')
 const c_random = require('canvas-sketch-util/random')
 import setCanvas from '../setCanvas'
 
-// idea for animation: http://jsfiddle.net/Cu6Zv/1/
-// or rotate the context?
+let [canvas, ctx, canvasW, canvasH, hero] = setCanvas()
 
-let [canvas, ctx, canvasW, canvasH] = setCanvas()
-const bg = 'blue'
-const lightBlue = '#FF0000'
+function resize () {
+  canvasW = window.innerWidth - 20
+  canvasH = window.innerHeight - 20
+  canvas.width = canvasW
+  canvas.height = canvasH
+}
+
+const bg = '#000B94'
+const lightBlue = '#9DC9FF'
+const redish = '#FF7A00'
+const orange = '#FF9D00'
+const yellow = '#FFD300'
 let a = 0
 
 const circles = [
   {
     'radius' : canvasH / 2,
     'points' : 7,
-    'colors' : ['yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow']
+    'colors' : [yellow, orange, redish, orange, yellow, redish, orange]
   },
   {
     'radius' : canvasH / 3,
     'points' : 5,
-    'colors' : ['yellow', 'yellow', 'yellow', 'yellow', 'yellow']
+    'colors' : [redish, yellow, redish, orange, redish]
   },
   {
     'radius' : canvasH / 5,
-    'points' : 3,
-    'colors' : ['purple', 'green', 'yellow']
+    'points' : 4,
+    'colors' : [redish, orange, yellow, orange]
   }
 ]
 
-function science () {
+function science() {
+  resize()
   ctx.fillStyle = bg
   ctx.fillRect(0, 0, canvasW, canvasH)
 
@@ -58,7 +67,7 @@ function science () {
       ctx.save()
         ctx.translate(x, y)
         ctx.rotate(-angle)
-        
+
         ctx.fillStyle = item.colors[i]
         ctx.beginPath()
         ctx.arc(0, 0, 10, 0, 2 *Math.PI)
@@ -68,9 +77,18 @@ function science () {
     }
   })
   a = a + 0.001
+
+  ctx.save()
+  ctx.textAlign = 'center'
+  ctx.font = '48px sans-serif'
+  ctx.fillStyle = orange
+  ctx.fillText('SCIENCE', canvasW / 2, canvasH / 3)
+  ctx.restore()
+
   window.requestAnimationFrame(science)
 
-  return canvas
+  hero.appendChild(canvas)
+  return hero
 }
 
 export default science

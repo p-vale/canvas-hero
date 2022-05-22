@@ -1,9 +1,10 @@
 import './style.css'
-import wrapper from './wrapper'
-import science from './designs/movingCircles'
+import science from './designs/science'
+import wine from './designs/wine'
 
 const container = document.createElement('div')
 container.id = 'container'
 
-wrapper(container, science())
+container.appendChild(science())
+// container.appendChild(wine())
 document.body.appendChild(container)
