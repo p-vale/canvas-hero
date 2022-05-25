@@ -1,5 +1,4 @@
 import setCanvas from '../setCanvas'
-// import winepois from './winepois'
 const c_random = require('canvas-sketch-util/random')
 
 let [canvas, ctx, canvasW, canvasH, hero] = setCanvas()
@@ -20,17 +19,8 @@ function setRadius () {
   return a
 }
 
-function setX () {
-  return c_random.range(0, canvasW)
-}
-
-function setY () {
-  return c_random.range(0, canvasH)
-}
-
 function setVel() {
-  let v = c_random.range(-3, 3)
-  if (-0.5 < v && v < 0.5) v = v * 1.5
+  let v = c_random.range(0.5, 3)
   return v
 }
 
@@ -42,56 +32,29 @@ const fontSize = 50
 const color = '#912853'
 const grd = ctx.createRadialGradient(cw, ch, 1, cw, ch, radius);
 grd.addColorStop(0, color);
-grd.addColorStop(0.75, 'rgb(255, 255, 255, 0)')
+grd.addColorStop(0.6, 'rgb(255, 255, 255, 0)')
 
-const points = [
-  {
-    'rad' : radius,
-    'x' : setX(),
-    'y' : setY(),
-    'velX' : setVel(),
-    'velY' : setVel()
-  }, 
-  {
-    'rad' : radius,
-    'x' : setX(),
-    'y' : setY(),
-    'velX' : setVel(),
-    'velY' : setVel()
-  },
-  {
-    'rad' : radius / 2,
-    'x' : setX(),
-    'y' : setY(),
-    'velX' : setVel(),
-    'velY' : setVel()
-  },
-  {
-    'rad' : radius / 2,
-    'x' : setX(),
-    'y' : setY(),
-    'velX' : setVel(),
-    'velY' : setVel()
-  },
-  {
-    'rad' : radius / 3,
-    'x' : setX(),
-    'y' : setY(),
-    'velX' : setVel(),
-    'velY' : setVel()
-  },
-  {
-    'rad' : radius / 3,
-    'x' : setX(),
-    'y' : setY(),
-    'velX' : setVel(),
-    'velY' : setVel()
-  },
-]
+class Circle{
+  constructor(num) {
+    this.rad = radius / num,
+    this.x = c_random.range(0, canvasW)
+    this.y = c_random.range(0, canvasH)
+    this.velX = setVel()
+    this.velY = setVel()
+  }
+}
+
+const rads = [1, 1, 2, 2, 2, 3]
+let points = []
+rads.map(item => { 
+  let p = new Circle(item)
+  points.push(p)
+})
 
 function wine () {
   resize()
   ctx.clearRect(0, 0, canvasW, canvasH)
+  ctx.globalCompositeOperation = 'multiply'
 
   // MOVING POIS
   points.map( (item) => {
@@ -101,7 +64,7 @@ function wine () {
     }
     ctx.save()
     ctx.translate(item.x, item.y)
-    let itemGrd = ctx.createRadialGradient(0, 0, 1, 0, 0, item.rad)
+    let itemGrd = ctx.createRadialGradient(0, 0, 0, 0, 0, item.rad)
     itemGrd.addColorStop(0, color);
     itemGrd.addColorStop(1, 'rgb(255, 255, 255, 0)')
     ctx.fillStyle = itemGrd
@@ -123,6 +86,7 @@ function wine () {
   ctx.fill()
   ctx.restore()
 
+  ctx.globalCompositeOperation = 'source-atop'
   let whiteRadius
   (radius > 150) ? whiteRadius = 150 : whiteRadius = radius / 5
   ctx.save()
