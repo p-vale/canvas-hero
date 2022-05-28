@@ -1,4 +1,3 @@
-import rgbaToHex from 'canvas-sketch-util/lib/rgba-to-hex';
 import setCanvas from '../setCanvas'
 const c_random = require('canvas-sketch-util/random')
 
@@ -23,7 +22,7 @@ function getGrd(rad) {
   circleGdr.addColorStop(0.30, 'rgb(217, 177, 118')
   circleGdr.addColorStop(0.56, 'rgb(236, 213, 179')
   circleGdr.addColorStop(0.90, 'rgb(201, 232, 249)')
-  circleGdr.addColorStop(1, 'rgb(220, 220, 220)')
+  // circleGdr.addColorStop(1, 'rgb(220, 220, 220)')
   return circleGdr
 }
 
@@ -76,16 +75,16 @@ let bottomPath = [
 
 // CIRCLES
 class Origin {
-  constructor() {
+  constructor(a, b) {
     this.x = c_random.range(0, canvasW)
-    this.y = c_random.range(0, canvasH)
+    this.y = c_random.range(a, b)
     this.velX = c_random.range(0.5, 3)
     this.velY = c_random.range(0.5, 3)
   }
 }
 
-let topOrigin = new Origin()
-let bottomOrigin = new Origin()
+let topOrigin = new Origin(0, canvasH / 2)
+let bottomOrigin = new Origin(canvasH / 2, canvasH)
 
 // TITLE
 const titleRad = 200
@@ -103,17 +102,17 @@ grdWhite.addColorStop(1, 'rgb(255, 255, 255, 1)')
 function waves () {
   resize()
   ctx.clearRect(0, 0, canvasW, canvasH)
-  let circleRad = getLonger() / 1.75
+  let circleRad = getLonger()
 
-  ctx.fillStyle = getGrd(circleRad)
   // BACKGROUND
   ctx.save()
   ctx.translate(canvasW / 2, canvasH / 2)
-  
+  ctx.fillStyle = getGrd(circleRad / 1.75)
   ctx.arc(0, 0, circleRad, 0, 2 * Math.PI)
   ctx.fill()
   ctx.restore()
 
+  ctx.fillStyle = getGrd(circleRad)
   // TOP
   ctx.save()
   ctx.beginPath()
@@ -131,14 +130,9 @@ function waves () {
   ctx.restore()
   // move
   if (topOrigin.x <= 0 || topOrigin.x >= canvasW) topOrigin.velX *= -1 //bounce
-  if (topOrigin.y <= 0 || topOrigin.y >= canvasH) topOrigin.velY *= -1
+  if (topOrigin.y <= 0 || topOrigin.y >= canvasH / 4) topOrigin.velY *= -1
   topOrigin.x += topOrigin.velX
   topOrigin.y += topOrigin.velY;  
-  // if (topPath[1].y >= 0.5 / 8 * canvasH & topPath[1].y <= 1.5 / 8 * canvasH) {
-  //   topPath[1].y = topPath[1].y + 0.5
-  // } else {
-  //   topPath[1].y = topPath[1].y - 0.5
-  // }
 
   // BOTTOM
   ctx.save()
@@ -151,13 +145,12 @@ function waves () {
   ctx.lineTo(bottomPath[0].x, bottomPath[0].y)
   ctx.closePath()
   ctx.clip()
-  // move ctx start
+  // move
   ctx.translate(bottomOrigin.x, bottomOrigin.y)
   if (bottomOrigin.x <= 0 || bottomOrigin.x >= canvasW) bottomOrigin.velX *= -1 //bounce
   if (bottomOrigin.y <= 0 || bottomOrigin.y >= canvasH) bottomOrigin.velY *= -1
   bottomOrigin.x += bottomOrigin.velX
   bottomOrigin.y += bottomOrigin.velY
-  // fill clip
   ctx.fillRect(0, 0, canvasW, canvasH)
   ctx.fill()
   ctx.restore()
