@@ -19,6 +19,14 @@ function setRadius () {
   return a
 }
 
+function setX () {
+  c_random.range(0, canvasW)
+}
+
+function setY () {
+  c_random.range(0, canvasH)
+}
+
 function setVel() {
   let v = c_random.range(0.5, 3)
   return v
@@ -37,8 +45,8 @@ grd.addColorStop(0.6, 'rgb(255, 255, 255, 0)')
 class Circle{
   constructor(num) {
     this.rad = radius / num,
-    this.x = c_random.range(0, canvasW)
-    this.y = c_random.range(0, canvasH)
+    this.x = setX()
+    this.y = setY()
     this.velX = setVel()
     this.velY = setVel()
   }
@@ -58,7 +66,7 @@ function wine () {
 
   // MOVING POIS
   points.map( (item) => {
-    if (item.x < -50 || item.x > canvasW +50) { //resize smaller
+    if (item.x < -50 || item.x > canvasW +50) { //resize smaller screen
       item.x = setX()
       item.y = setY()
     }

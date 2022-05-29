@@ -13,9 +13,6 @@
   height: 100%;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  /* align-items: center;
-  justify-content: center; */
 }
 
 .hero-box {
@@ -26,19 +23,28 @@
   align-items: center;
 }
 
-h1 {
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 6vh;
-}
-
-.centered {
+#menu {
   position: absolute;
-  left: 40vw;
-  top: 40vw;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  border-radius: 2px;
+  background-color: rgb(255, 255, 255, 0.75);
+  display: flex;
+  gap: 5px;
 }
 
-#science-title {
-  color: #FF9D00;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+#nav {
+  display: none;
+  gap: 5px;
+}
+
+button {
+  text-transform: uppercase;
+  font-family: sans-serif;
+}
+
+p {
+  text-transform: uppercase;
+  font-family: sans-serif;
 }

@@ -37,6 +37,13 @@ function cappuccino () {
   point += move
   if (point <= - 10 || point >= canvasW + 10) point = 0
 
+  ctx.save()
+  ctx.textAlign = 'center'
+  ctx.font = '48px sans-serif'
+  ctx.fillStyle = 'white'
+  ctx.fillText('CAPPUCCINO', canvasW / 2, canvasH / 2 + 48 / 2)
+  ctx.restore()
+
   window.requestAnimationFrame(cappuccino)
   hero.appendChild(canvas)
   return hero
