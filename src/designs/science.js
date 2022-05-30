@@ -1,5 +1,4 @@
 const c_math = require('canvas-sketch-util/math')
-const c_random = require('canvas-sketch-util/random')
 import setCanvas from '../setCanvas'
 
 let [canvas, ctx, canvasW, canvasH, hero] = setCanvas()
@@ -18,7 +17,7 @@ const orange = '#FF9D00'
 const yellow = '#FFD300'
 let a = 0
 
-const circles = [
+const circonf = [
   {
     'radius' : canvasH / 2,
     'points' : 7,
@@ -41,7 +40,7 @@ function science() {
   ctx.fillStyle = bg
   ctx.fillRect(0, 0, canvasW, canvasH)
 
-  circles.map( (item) => {
+  circonf.map( (item) => {
     ctx.save()
     ctx.strokeStyle = lightBlue
     ctx.lineWidth = 3
@@ -55,7 +54,7 @@ function science() {
       ctx.lineWidth = 5
       const slice = c_math.degToRad(360 / item.points)
       let angle
-      if (circles.indexOf(item) % 2) {
+      if (circonf.indexOf(item) % 2) {
         angle = slice * i - a
       } else {
         angle = slice * i + a
@@ -86,7 +85,6 @@ function science() {
   ctx.restore()
 
   window.requestAnimationFrame(science)
-
   hero.appendChild(canvas)
   return hero
 }

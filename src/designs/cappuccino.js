@@ -1,6 +1,4 @@
-import { value } from 'canvas-sketch-util/random'
 import setCanvas from '../setCanvas'
-const c_random = require('canvas-sketch-util/random')
 
 let [canvas, ctx, canvasW, canvasH, hero] = setCanvas()
 
@@ -14,7 +12,7 @@ function resize () {
 const sides = 4 / 6 * canvasH
 const center = canvasH
 let point = canvasW / 2
-let move = 0.5
+let move = 1.5
 
 function cappuccino () {
   resize()

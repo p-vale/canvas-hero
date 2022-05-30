@@ -20,11 +20,11 @@ function setRadius () {
 }
 
 function setX () {
-  c_random.range(0, canvasW)
+  return c_random.range(0, canvasW)
 }
 
 function setY () {
-  c_random.range(0, canvasH)
+  return c_random.range(0, canvasH)
 }
 
 function setVel() {
@@ -42,7 +42,7 @@ const grd = ctx.createRadialGradient(cw, ch, 1, cw, ch, radius);
 grd.addColorStop(0, color);
 grd.addColorStop(0.6, 'rgb(255, 255, 255, 0)')
 
-class Circle{
+class Circle {
   constructor(num) {
     this.rad = radius / num,
     this.x = setX()
