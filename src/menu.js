@@ -2,6 +2,8 @@ import science from './designs/science'
 import wine from './designs/wine'
 import waves from './designs/waves'
 import cappuccino from './designs/cappuccino'
+import butter from './designs/butter'
+import mint from './designs/mint'
 
 const designs = [
   {
@@ -19,6 +21,14 @@ const designs = [
   {
     "name" : 'cappuccino',
     "func" : cappuccino
+  },
+  {
+    "name" : 'butter',
+    "func" : butter
+  },
+  {
+    "name" : 'mint',
+    "func" : mint
   }
 ]
 
